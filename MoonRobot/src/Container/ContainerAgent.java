@@ -55,7 +55,7 @@ public class ContainerAgent extends Agent
 			System.out.println( x  + " " + y + " Minera³ iloœæ: " + mineraly[x][y]);
 		}
 		
-		
+		addBehaviour(new PrzeszkodaSesnsor());
 		
 		
 	}
