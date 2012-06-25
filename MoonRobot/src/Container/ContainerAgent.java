@@ -19,7 +19,7 @@ import jade.lang.acl.UnreadableException;
 public class ContainerAgent extends Agent
 {
 	
-	int [][] roboty;
+	RobotData [][] roboty;
 	int [][] przeszkody;
 	int [][] mineraly;
 	int [][] gradient;
@@ -28,7 +28,7 @@ public class ContainerAgent extends Agent
 	protected void setup()
 	{
 		przeszkody = new int[21][21];
-		roboty = new  int [21][21];
+		roboty = new  RobotData [21][21];
 		mineraly =new int [21][21];
 		gradient = new int [21][21];
 		
@@ -75,6 +75,7 @@ public class ContainerAgent extends Agent
 					if(CanMove(data))
 					{
 						response = new ACLMessage(ACLMessage.AGREE);
+						MoveRobot(data);
 					}
 					else
 					{
@@ -82,6 +83,8 @@ public class ContainerAgent extends Agent
 					}
 					
 					response.addReceiver (msg.getSender());
+					
+					myAgent.send(response);
 					
 				} catch (UnreadableException e) {
 					// TODO Auto-generated catch block
@@ -97,47 +100,97 @@ public class ContainerAgent extends Agent
 		{
 			Boolean wynik = false;
 			
+			try
+			{
 			switch(data.pozycja.kierunek)
 			{
 				case Dó³:
 				{
+					if(wynik = IsPrzeszkoda(data.pozycja.x + 1, data.pozycja.y) == false);
+						wynik = IsRobot(data.pozycja.x + 1, data.pozycja.y);
 					break;
 				}
 				
 				case Góra:
 				{
-					
+					if(wynik = IsPrzeszkoda(data.pozycja.x - 1, data.pozycja.y) == false);
+						wynik = IsRobot(data.pozycja.x - 1, data.pozycja.y);
 					break;
 				}
 				
 				case Lewo:
 				{
-					
+					if(wynik = IsPrzeszkoda(data.pozycja.x, data.pozycja.y - 1) == false);
+						wynik = IsRobot(data.pozycja.x, data.pozycja.y - 1 );
 					break;
 				}
 				
 				case Prawo:
 				{
-					
+					if(wynik = IsPrzeszkoda(data.pozycja.x, data.pozycja.y + 1) == false);
+						wynik = IsRobot(data.pozycja.x, data.pozycja.y + 1 );
 					break;
 				}
 			}
 			
-			
 			return wynik;
+			}
+			catch (IndexOutOfBoundsException e) {
+				return false;
+			}
+				
+			}
 		}
 		
-		public Boolean IsPrzeszkoda(RobotData data)
+		public Boolean IsPrzeszkoda(int x, int y)
 		{
-			
-			return true;
+			if(przeszkody[x][y] == 0)
+				return true;
+			else
+				return false;
 		}
 		
-		public Boolean IsRobot(RobotData data)
+		public Boolean IsRobot(int x, int y)
 		{
-			return true;
+			if(roboty[x][y] == null)
+				return true;
+			else
+				return false;
 		}
 	
+		public void MoveRobot(RobotData data)
+		{
+			RobotData robot = roboty[data.pozycja.x][data.pozycja.y];
+			
+			roboty[data.pozycja.x][data.pozycja.y] = null;
+			
+			switch(data.pozycja.kierunek)
+			{
+				case Dó³:
+				{
+					roboty[data.pozycja.x - 1 ][data.pozycja.y] = robot;
+					break;
+				}
+				
+				case Góra:
+				{
+					roboty[data.pozycja.x + 1][data.pozycja.y] = robot;
+					break;
+				}
+				
+				case Lewo:
+				{
+					roboty[data.pozycja.x][data.pozycja.y - 1] = robot;
+					break;
+				}
+				
+				case Prawo:
+				{
+					roboty[data.pozycja.x][data.pozycja.y + 1] = robot;
+					break;
+				}
+		}
+		
 	}
 	
 	private class MineralSensor extends CyclicBehaviour{
