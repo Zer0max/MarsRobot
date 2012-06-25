@@ -81,6 +81,7 @@ public class ContainerAgent extends Agent
 						response = new ACLMessage(ACLMessage.REFUSE);
 					}
 					
+					response.addReceiver (msg.getSender());
 					
 				} catch (UnreadableException e) {
 					// TODO Auto-generated catch block
