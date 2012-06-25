@@ -71,6 +71,15 @@ public class ContainerAgent extends Agent
 					Object RAWdata = msg.getContentObject();
 					RobotData data = (RobotData) RAWdata;
 					
+					ACLMessage response;
+					if(CanMove(data))
+					{
+						response = new ACLMessage(ACLMessage.AGREE);
+					}
+					else
+					{
+						response = new ACLMessage(ACLMessage.REFUSE);
+					}
 					
 					
 				} catch (UnreadableException e) {
