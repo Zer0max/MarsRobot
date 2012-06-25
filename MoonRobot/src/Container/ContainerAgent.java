@@ -1,5 +1,8 @@
 package Container;
 
+
+import Data.*;
+
 import java.util.Random;
 import java.util.Vector;
 
@@ -9,6 +12,7 @@ import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import jade.lang.acl.UnreadableException;
 
 public class ContainerAgent extends Agent
 {
@@ -61,7 +65,16 @@ public class ContainerAgent extends Agent
 			//MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.);
 			ACLMessage msg = myAgent.receive();
 			if (msg != null) {
-				//int X = msg.getContent();
+				try {
+
+					Object RAWdata = msg.getContentObject();
+					VectorXY data = (VectorXY) RAWdata;
+					
+				} catch (UnreadableException e) {
+					// TODO Auto-generated catch block
+					
+					e.printStackTrace();
+				}
 			
 			}
 			
