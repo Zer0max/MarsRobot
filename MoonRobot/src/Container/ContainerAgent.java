@@ -95,20 +95,40 @@ public class ContainerAgent extends Agent
 		
 		public Boolean CanMove(RobotData data)
 		{
-			return true;
-		}
-		
-		public Boolean IsPrzeszkoda(RobotData data)
-		{
+			Boolean wynik = false;
+			
 			switch(data.pozycja.kierunek)
 			{
 				case Dó³:
 				{
-					
+					break;
 				}
 				
+				case Góra:
+				{
+					
+					break;
+				}
 				
+				case Lewo:
+				{
+					
+					break;
+				}
+				
+				case Prawo:
+				{
+					
+					break;
+				}
 			}
+			
+			
+			return wynik;
+		}
+		
+		public Boolean IsPrzeszkoda(RobotData data)
+		{
 			
 			return true;
 		}
