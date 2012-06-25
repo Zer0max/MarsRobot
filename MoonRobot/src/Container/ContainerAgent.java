@@ -57,14 +57,15 @@ public class ContainerAgent extends Agent
 		
 		addBehaviour(new PrzeszkodaSesnsor());
 		
+		addBehaviour(new StanSrodowsika(this,1000));
+		
 		
 	}
 	
 	private class PrzeszkodaSesnsor extends CyclicBehaviour {
 
 		@Override
-		public void action() {
-			//MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.);
+		public void action(){
 			ACLMessage msg = myAgent.receive();
 			if (msg != null) {
 				try {
@@ -102,44 +103,44 @@ public class ContainerAgent extends Agent
 			
 			try
 			{
-			switch(data.pozycja.kierunek)
-			{
-				case Dó³:
+				switch(data.pozycja.kierunek)
 				{
-					if(wynik = IsPrzeszkoda(data.pozycja.x + 1, data.pozycja.y) == false);
-						wynik = IsRobot(data.pozycja.x + 1, data.pozycja.y);
-					break;
+					case Dó³:
+					{
+						if(wynik = IsPrzeszkoda(data.pozycja.x + 1, data.pozycja.y) == false);
+							wynik = IsRobot(data.pozycja.x + 1, data.pozycja.y);
+						break;
+					}
+					
+					case Góra:
+					{
+						if(wynik = IsPrzeszkoda(data.pozycja.x - 1, data.pozycja.y) == false);
+							wynik = IsRobot(data.pozycja.x - 1, data.pozycja.y);
+						break;
+					}
+					
+					case Lewo:
+					{
+						if(wynik = IsPrzeszkoda(data.pozycja.x, data.pozycja.y - 1) == false);
+							wynik = IsRobot(data.pozycja.x, data.pozycja.y - 1 );
+						break;
+					}
+					
+					case Prawo:
+					{
+						if(wynik = IsPrzeszkoda(data.pozycja.x, data.pozycja.y + 1) == false);
+							wynik = IsRobot(data.pozycja.x, data.pozycja.y + 1 );
+						break;
+					}
 				}
-				
-				case Góra:
-				{
-					if(wynik = IsPrzeszkoda(data.pozycja.x - 1, data.pozycja.y) == false);
-						wynik = IsRobot(data.pozycja.x - 1, data.pozycja.y);
-					break;
-				}
-				
-				case Lewo:
-				{
-					if(wynik = IsPrzeszkoda(data.pozycja.x, data.pozycja.y - 1) == false);
-						wynik = IsRobot(data.pozycja.x, data.pozycja.y - 1 );
-					break;
-				}
-				
-				case Prawo:
-				{
-					if(wynik = IsPrzeszkoda(data.pozycja.x, data.pozycja.y + 1) == false);
-						wynik = IsRobot(data.pozycja.x, data.pozycja.y + 1 );
-					break;
-				}
-			}
 			
-			return wynik;
+				return wynik;
 			}
 			catch (IndexOutOfBoundsException e) {
 				return false;
 			}
 				
-			}
+			
 		}
 		
 		public Boolean IsPrzeszkoda(int x, int y)
@@ -189,6 +190,7 @@ public class ContainerAgent extends Agent
 					roboty[data.pozycja.x][data.pozycja.y + 1] = robot;
 					break;
 				}
+			}
 		}
 		
 	}
@@ -197,7 +199,10 @@ public class ContainerAgent extends Agent
 
 		@Override
 		public void action() {
-			// TODO Auto-generated method stub
+			ACLMessage msg = myAgent.receive();
+			if (msg != null) {
+				
+			}
 			
 		}
 	}
@@ -212,10 +217,26 @@ public class ContainerAgent extends Agent
 		
 	}
 	
-	private class Okruszki extends CyclicBehaviour{
+	private class OkruszkiSensor extends CyclicBehaviour{
 
 		@Override
 		public void action() {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
+	private class StanSrodowsika extends TickerBehaviour
+	{
+
+		public StanSrodowsika(Agent a, long period) {
+			super(a, period);
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		protected void onTick() {
 			// TODO Auto-generated method stub
 			
 		}
