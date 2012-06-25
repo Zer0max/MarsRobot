@@ -6,6 +6,8 @@ import Data.*;
 import java.util.Random;
 import java.util.Vector;
 
+import javax.swing.tree.AbstractLayoutCache;
+
 import FIPA.DateTime;
 
 import jade.core.Agent;
@@ -66,9 +68,10 @@ public class ContainerAgent extends Agent
 			ACLMessage msg = myAgent.receive();
 			if (msg != null) {
 				try {
-
 					Object RAWdata = msg.getContentObject();
-					VectorXY data = (VectorXY) RAWdata;
+					RobotData data = (RobotData) RAWdata;
+					
+					
 					
 				} catch (UnreadableException e) {
 					// TODO Auto-generated catch block
@@ -78,6 +81,31 @@ public class ContainerAgent extends Agent
 			
 			}
 			
+		}
+		
+		public Boolean CanMove(RobotData data)
+		{
+			return true;
+		}
+		
+		public Boolean IsPrzeszkoda(RobotData data)
+		{
+			switch(data.pozycja.kierunek)
+			{
+				case Dó³:
+				{
+					
+				}
+				
+				
+			}
+			
+			return true;
+		}
+		
+		public Boolean IsRobot(RobotData data)
+		{
+			return true;
 		}
 	
 	}
